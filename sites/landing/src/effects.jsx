@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import {
+  animate,
   motion,
   useMotionTemplate,
   useMotionValue,
@@ -181,11 +182,12 @@ export function PerspectiveText({ children, className = '' }) {
 /* Número que rola até o novo valor. */
 export function AnimatedNumber({ value, format = formatFull, className = '' }) {
   const reduce = useReducedMotion()
-  const spring = useSpring(value, { stiffness: 80, damping: 20 })
+  const current = useMotionValue(value)
   useEffect(() => {
-    spring.set(value)
-  }, [spring, value])
-  const text = useTransform(spring, (v) => format(v))
+    const controls = animate(current, value, { duration: 0.9, ease: EASE })
+    return () => controls.stop()
+  }, [current, value])
+  const text = useTransform(current, (v) => format(v))
   return <motion.span className={className}>{reduce ? format(value) : text}</motion.span>
 }
 
