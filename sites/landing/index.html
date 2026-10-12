@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Fernando Arnhold — wealth management, planejamento patrimonial e soluções corporativas com modelo Fee Based, transparência e alinhamento de incentivos."
+    />
+    <meta name="theme-color" content="#07182D" />
+    <meta property="og:title" content="Fernando Arnhold | Gestão Patrimonial com Alinhamento Total" />
+    <meta
+      property="og:description"
+      content="Wealth management e planejamento patrimonial para empresários, famílias e executivos, com transparência e visão integrada de longo prazo."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="preload" as="image" href="/images/fernando-arnhold.webp" type="image/webp" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Fernando Arnhold",
+        "jobTitle": "Sócio e Assessor de Investimentos",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Monte Bravo"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/fernando-arnhold/",
+          "https://www.instagram.com/FERNANDO.ARNHOLD"
+        ]
+      }
+    </script>
+    <title>Fernando Arnhold | Gestão Patrimonial Fee Based</title>
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '442884099704474');
+      fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
+  </head>
+  <body>
+    <!-- Meta Pixel Code (noscript fallback) -->
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=442884099704474&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+    <!-- Blueprint estático para o Netlify detectar o formulário renderizado pelo React. -->
+    <form name="diagnostico-patrimonial" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="diagnostico-patrimonial" />
+      <input name="bot-field" />
+      <input name="nome" />
+      <input name="telefone" />
+      <input name="email" type="email" />
+      <select name="patrimonio"><option value=""></option></select>
+      <textarea name="prioridade"></textarea>
+    </form>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
