@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { AnimatedNumber, Reveal } from './effects.jsx'
 import {
   ArrowCounterClockwise,
   ArrowRight,
@@ -94,7 +95,7 @@ export function Eyebrow({ children, className = '' }) {
 
 export function SectionHeading({ eyebrow, title, body, align = 'left', className = '' }) {
   return (
-    <div className={`${align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'} ${className}`}>
+    <Reveal className={`${align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'} ${className}`}>
       {eyebrow && <Eyebrow className="mb-4">{eyebrow}</Eyebrow>}
       <h2 className="text-[30px] leading-[1.12] font-light tracking-[-0.025em] text-ink sm:text-[40px] lg:text-[46px]">
         {title}
@@ -104,7 +105,7 @@ export function SectionHeading({ eyebrow, title, body, align = 'left', className
           {body}
         </p>
       )}
-    </div>
+    </Reveal>
   )
 }
 
@@ -182,7 +183,7 @@ export function Simulator({ id, eyebrow, title, body, footnote, calloutTitle, ca
       <Container>
         <SectionHeading eyebrow={eyebrow} title={title} body={body} />
 
-        <div className="mt-12 grid overflow-hidden rounded-2xl bg-white shadow-float ring-1 ring-hairline lg:grid-cols-[.8fr_1.2fr]">
+        <Reveal className="mt-12 grid overflow-hidden rounded-2xl bg-white shadow-float ring-1 ring-hairline lg:grid-cols-[.8fr_1.2fr]">
           <div className="border-b border-hairline p-6 sm:p-8 lg:border-r lg:border-b-0">
             <h3 className="text-lg font-normal text-ink">Parâmetros da simulação</h3>
 
@@ -207,7 +208,7 @@ export function Simulator({ id, eyebrow, title, body, footnote, calloutTitle, ca
             <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-sm text-mute">Diferença patrimonial projetada</p>
-                <p className="tnum mt-1 text-[36px] leading-none font-light tracking-[-0.03em] text-ink sm:text-[44px]">{formatBRL(result.difference)}</p>
+                <p className="tnum mt-1 text-[36px] leading-none font-light tracking-[-0.03em] text-ink sm:text-[44px]"><AnimatedNumber value={result.difference} format={formatBRL} /></p>
               </div>
               <p className="tnum text-xs text-mute">Ao final de {years} anos</p>
             </div>
@@ -241,7 +242,7 @@ export function Simulator({ id, eyebrow, title, body, footnote, calloutTitle, ca
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </Container>
     </section>
   )

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Button, Container, Eyebrow, Icon, SectionHeading, Simulator } from './ui.jsx'
+import { CompoundStory, HeroCoins, PerspectiveText, Reveal, TiltCard } from './effects.jsx'
 
 const BOOKING_URL = import.meta.env.VITE_BOOKING_URL || '#diagnostico'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/fernando-arnhold/'
@@ -127,7 +128,8 @@ function Hero() {
         </div>
 
         <div className="reveal reveal-2 relative mx-auto w-full max-w-[420px] lg:mr-0">
-          <div className="overflow-hidden rounded-2xl bg-brand-dark shadow-deep">
+          <HeroCoins />
+          <TiltCard max={6} className="overflow-hidden rounded-2xl bg-brand-dark shadow-deep">
             <img
               src="/images/fernando-arnhold.webp"
               alt="Fernando Arnhold em retrato profissional"
@@ -136,13 +138,13 @@ function Hero() {
               height="1536"
               fetchPriority="high"
             />
-          </div>
+          </TiltCard>
 
           <a
             href={LINKEDIN_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="focus-ring absolute -bottom-6 left-4 right-4 flex items-center gap-4 rounded-xl bg-white p-4 shadow-float ring-1 ring-hairline transition-transform hover:-translate-y-0.5 sm:-left-10 sm:right-auto sm:max-w-[300px]"
+            className="focus-ring absolute -bottom-6 left-4 right-4 z-30 flex items-center gap-4 rounded-xl bg-white p-4 shadow-float ring-1 ring-hairline transition-transform hover:-translate-y-0.5 sm:-left-10 sm:right-auto sm:max-w-[300px]"
           >
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary-tint text-primary">
               <Icon name="linkedin" className="h-5 w-5" weight="fill" />
@@ -169,14 +171,14 @@ function ProofStrip() {
   return (
     <section aria-label="Diferenciais" className="border-y border-hairline bg-white">
       <Container className="grid gap-x-8 gap-y-6 py-10 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map(([icon, title, body]) => (
-          <div key={title} className="flex gap-3.5">
+        {items.map(([icon, title, body], index) => (
+          <Reveal key={title} delay={index * 0.08} className="flex gap-3.5">
             <Icon name={icon} className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
             <div>
               <p className="text-[15px] font-medium text-ink">{title}</p>
               <p className="mt-1 text-sm leading-6 text-mute">{body}</p>
             </div>
-          </div>
+          </Reveal>
         ))}
       </Container>
     </section>
@@ -235,7 +237,9 @@ function Imprensa() {
         />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
-          <a
+          <TiltCard
+            as="a"
+            max={5}
             href={featured.url}
             target="_blank"
             rel="noopener noreferrer"
@@ -257,7 +261,7 @@ function Imprensa() {
                 </span>
               </span>
             </span>
-          </a>
+          </TiltCard>
 
           <ul className="divide-y divide-hairline rounded-2xl bg-white px-6 ring-1 ring-hairline sm:px-7">
             {rest.map((item) => (
@@ -332,10 +336,12 @@ function PullQuote() {
   return (
     <section className="bg-canvas-soft">
       <Container className="py-20 sm:py-24">
-        <p className="max-w-4xl text-[30px] leading-[1.15] font-light tracking-[-0.03em] text-ink sm:text-[44px]">
-          O Fee Based não é um produto.
-          <span className="block text-primary">É um modelo de relacionamento.</span>
-        </p>
+        <PerspectiveText>
+          <p className="max-w-4xl text-[30px] leading-[1.15] font-light tracking-[-0.03em] text-ink sm:text-[44px]">
+            O Fee Based não é um produto.
+            <span className="block text-primary">É um modelo de relacionamento.</span>
+          </p>
+        </PerspectiveText>
       </Container>
     </section>
   )
@@ -464,7 +470,7 @@ function Methodology() {
         />
 
         <div className="mt-12 grid gap-5 lg:grid-cols-12">
-          <article className="flex flex-col rounded-2xl bg-cream p-7 sm:p-10 lg:col-span-7 lg:row-span-2">
+          <TiltCard as="article" max={4} className="flex flex-col rounded-2xl bg-cream p-7 sm:p-10 lg:col-span-7 lg:row-span-2">
             <span className="grid h-12 w-12 place-items-center rounded-xl bg-white text-primary shadow-lift">
               <Icon name={first.icon} className="h-6 w-6" />
             </span>
@@ -472,10 +478,10 @@ function Methodology() {
             <h3 className="mt-2 text-[30px] leading-[1.1] font-light tracking-[-0.025em] text-ink sm:text-[36px]">{first.title}</h3>
             <p className="mt-5 max-w-[52ch] text-[16px] leading-[1.7] text-ink-2">{first.body}</p>
             <p className="mt-auto pt-10 text-[15px] font-medium text-ink">{first.detail}</p>
-          </article>
+          </TiltCard>
 
           {others.map((pillar) => (
-            <article key={pillar.title} className="flex flex-col rounded-2xl bg-white p-7 ring-1 ring-hairline transition-shadow hover:shadow-float lg:col-span-5">
+            <TiltCard as="article" key={pillar.title} max={6} className="flex flex-col rounded-2xl bg-white p-7 ring-1 ring-hairline transition-shadow hover:shadow-float lg:col-span-5">
               <div className="flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary-tint text-primary">
                   <Icon name={pillar.icon} className="h-5 w-5" />
@@ -484,7 +490,7 @@ function Methodology() {
               </div>
               <p className="mt-4 text-[15px] leading-[1.65] text-mute">{pillar.body}</p>
               <p className="mt-5 text-sm font-medium text-ink">{pillar.detail}</p>
-            </article>
+            </TiltCard>
           ))}
         </div>
 
@@ -515,7 +521,7 @@ function ComparisonSection() {
         />
 
         <div className="mt-12 grid gap-5 lg:grid-cols-2">
-          <div className="rounded-2xl bg-white p-7 ring-1 ring-hairline sm:p-9">
+          <TiltCard max={5} className="rounded-2xl bg-white p-7 ring-1 ring-hairline sm:p-9">
             <h3 className="text-[22px] font-light text-ink">Modelo comissionado</h3>
             <ul className="mt-6 space-y-4">
               {commissioned.map((item) => (
@@ -525,9 +531,9 @@ function ComparisonSection() {
                 </li>
               ))}
             </ul>
-          </div>
+          </TiltCard>
 
-          <div className="mesh-dark rounded-2xl p-7 text-white shadow-float sm:p-9">
+          <TiltCard max={5} className="mesh-dark rounded-2xl p-7 text-white shadow-float sm:p-9">
             <h3 className="text-[22px] font-light">Fee Based</h3>
             <ul className="mt-6 space-y-4">
               {feeBased.map((item) => (
@@ -537,7 +543,7 @@ function ComparisonSection() {
                 </li>
               ))}
             </ul>
-          </div>
+          </TiltCard>
         </div>
 
         <p className="mt-6 max-w-3xl text-xs leading-5 text-mute">
@@ -920,7 +926,7 @@ function FinalCTA() {
   return (
     <section className="bg-white py-20 sm:py-24">
       <Container>
-        <div className="mesh-dark relative overflow-hidden rounded-2xl px-7 py-12 text-white shadow-deep sm:px-12 sm:py-16">
+        <TiltCard max={3} className="mesh-dark overflow-hidden rounded-2xl px-7 py-12 text-white shadow-deep sm:px-12 sm:py-16">
           <div className="max-w-2xl">
             <h2 className="text-[32px] leading-[1.1] font-light tracking-[-0.03em] sm:text-[46px]">Descubra o que sua carteira não está mostrando.</h2>
             <p className="mt-5 max-w-[56ch] text-[17px] leading-[1.65] text-on-dark">
@@ -928,7 +934,7 @@ function FinalCTA() {
             </p>
             <Button href="#diagnostico" variant="onDark" className="mt-9">{CTA_LABEL}</Button>
           </div>
-        </div>
+        </TiltCard>
       </Container>
     </section>
   )
@@ -1006,6 +1012,7 @@ export default function App() {
         <ProofStrip />
         <Imprensa />
         <ConflictSection />
+        <CompoundStory />
         <PullQuote />
         <VideoSection />
         <Simulator
