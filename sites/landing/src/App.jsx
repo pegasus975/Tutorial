@@ -729,7 +729,7 @@ function Diagnostic() {
                     {submitError}
                   </p>
                 )}
-                <p className="mt-4 text-center text-xs leading-5 text-mute">Ao enviar, você concorda em ser contatado sobre o diagnóstico. Publique uma Política de Privacidade adequada antes de iniciar campanhas de captação.</p>
+                <p className="mt-4 text-center text-xs leading-5 text-mute">Ao enviar, você concorda em ser contatado sobre o diagnóstico.</p>
               </form>
             )}
           </div>
