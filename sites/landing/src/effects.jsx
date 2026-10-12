@@ -106,61 +106,6 @@ export function Coin({ size = 96, depth = 10, tone = 'indigo', className = '' })
   )
 }
 
-/* Moedas do topo: giram e sobem com a rolagem, reagem ao mouse em profundidade. */
-const HERO_COINS = [
-  { size: 132, depth: 14, className: 'right-[-34px] top-[-40px] z-20', parallax: 1, spin: 540, tilt: 26, float: 'coin-float' },
-  { size: 78, depth: 10, className: 'left-[-46px] top-[38%] z-20', parallax: 1.6, spin: -420, tilt: 18, float: 'coin-float coin-float--late' },
-  { size: 46, depth: 8, className: 'right-[18%] bottom-[-70px] z-0 blur-[1.5px] opacity-80', parallax: 2.4, spin: 360, tilt: 12, float: 'coin-float coin-float--slow' },
-]
-
-function HeroCoin({ coin, scrollY, px, py }) {
-  const y = useTransform(scrollY, [0, 900], [0, -160 * coin.parallax])
-  const rotateY = useTransform(scrollY, [0, 900], [-18, coin.spin])
-  const rotateX = useTransform(py, [-1, 1], [coin.tilt, -coin.tilt])
-  const tiltY = useTransform(px, [-1, 1], [-coin.tilt, coin.tilt])
-  const x = useTransform(px, [-1, 1], [-10 * coin.parallax, 10 * coin.parallax])
-  const rotY = useTransform([rotateY, tiltY], ([a, b]) => a + b)
-
-  return (
-    <motion.div className={`pointer-events-none absolute ${coin.className}`} style={{ y, x }}>
-      <div className={coin.float}>
-        <motion.div style={{ rotateX, rotateY: rotY, transformPerspective: 800, transformStyle: 'preserve-3d' }}>
-          <Coin size={coin.size} depth={coin.depth} />
-        </motion.div>
-      </div>
-    </motion.div>
-  )
-}
-
-export function HeroCoins() {
-  const reduce = useReducedMotion()
-  const { scrollY } = useScroll()
-  const pxRaw = useMotionValue(0)
-  const pyRaw = useMotionValue(0)
-  const px = useSpring(pxRaw, { stiffness: 60, damping: 18 })
-  const py = useSpring(pyRaw, { stiffness: 60, damping: 18 })
-
-  useEffect(() => {
-    if (reduce || !window.matchMedia('(pointer: fine)').matches) return
-    const onMove = (event) => {
-      pxRaw.set((event.clientX / window.innerWidth) * 2 - 1)
-      pyRaw.set((event.clientY / window.innerHeight) * 2 - 1)
-    }
-    window.addEventListener('pointermove', onMove, { passive: true })
-    return () => window.removeEventListener('pointermove', onMove)
-  }, [reduce, pxRaw, pyRaw])
-
-  if (reduce) {
-    return (
-      <div className="pointer-events-none absolute right-[-30px] top-[-36px] z-20" style={{ transform: 'rotateY(-18deg)', transformStyle: 'preserve-3d' }}>
-        <Coin size={120} depth={14} />
-      </div>
-    )
-  }
-
-  return HERO_COINS.map((coin) => <HeroCoin key={coin.size} coin={coin} scrollY={scrollY} px={px} py={py} />)
-}
-
 /* Frase que “se levanta” em perspectiva conforme entra na tela. */
 export function PerspectiveText({ children, className = '' }) {
   const ref = useRef(null)

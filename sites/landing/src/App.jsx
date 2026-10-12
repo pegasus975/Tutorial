@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Button, Container, Eyebrow, Icon, SectionHeading, Simulator } from './ui.jsx'
-import { CompoundStory, HeroCoins, PerspectiveText, Reveal, TiltCard } from './effects.jsx'
+import { CompoundStory, PerspectiveText, Reveal, TiltCard } from './effects.jsx'
 
 const BOOKING_URL = import.meta.env.VITE_BOOKING_URL || '#diagnostico'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/fernando-arnhold/'
@@ -103,7 +103,7 @@ function Hero() {
     <section id="inicio" className="relative overflow-hidden pt-[72px]">
       <div className="mesh" aria-hidden="true" />
 
-      <Container className="relative grid items-center gap-14 pt-14 pb-20 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-[1.35fr_.65fr] lg:pt-16 lg:pb-24">
+      <Container className="relative grid items-center gap-14 pt-14 pb-20 lg:grid-cols-[1.35fr_.65fr] lg:pt-24 lg:pb-24">
         <div>
           <Eyebrow className="reveal">Wealth Management · Modelo Fee Based</Eyebrow>
 
@@ -128,7 +128,6 @@ function Hero() {
         </div>
 
         <div className="reveal reveal-2 relative mx-auto w-full max-w-[420px] lg:mr-0">
-          <HeroCoins />
           <TiltCard max={6} className="overflow-hidden rounded-2xl bg-brand-dark shadow-deep">
             <img
               src="/images/fernando-arnhold.webp"
@@ -642,7 +641,7 @@ function Diagnostic() {
   }
 
   return (
-    <section id="diagnostico" className="bg-canvas-soft py-24 sm:py-28">
+    <section id="diagnostico" className="bg-canvas-soft pt-16 pb-24 sm:pt-20 sm:pb-28">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
           <div>
@@ -1009,6 +1008,7 @@ export default function App() {
       <Navbar />
       <main id="conteudo">
         <Hero />
+        <Diagnostic />
         <ProofStrip />
         <Imprensa />
         <ConflictSection />
@@ -1025,7 +1025,6 @@ export default function App() {
         <Methodology />
         <ComparisonSection />
         <RespaldoRegulatorio />
-        <Diagnostic />
         <About />
         <FAQ />
         <FinalCTA />
