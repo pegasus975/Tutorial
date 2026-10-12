@@ -1,95 +1,159 @@
 @import "tailwindcss";
+@import "@fontsource-variable/geist/wght.css";
 
+/*
+  Design tokens inspirados no DESIGN.md (Stripe) da raiz do repositório.
+  É uma interpretação de estilo, não a identidade visual do Stripe:
+  sem logo, sem marca e sem a fonte proprietária (Söhne → Geist).
+*/
 @theme {
-  --color-navy-950: #061427;
-  --color-navy-900: #07182d;
-  --color-navy-800: #0b2440;
-  --color-navy-700: #123554;
-  --color-platinum-50: #f8fafc;
-  --color-platinum-100: #eef2f5;
-  --color-platinum-200: #dce3e8;
-  --color-platinum-300: #c8d1d8;
-  --color-platinum-500: #82909b;
-  --color-gold-300: #e4cf9a;
-  --color-gold-400: #cdb171;
-  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --color-ink: #0d253d;
+  --color-ink-2: #273951;
+  --color-mute: #5b6b82;
+  --color-canvas: #ffffff;
+  --color-canvas-soft: #f6f9fc;
+  --color-cream: #f5e9d4;
+  --color-hairline: #e3e8ee;
+  --color-hairline-input: #a8c3de;
+  --color-primary: #533afd;
+  --color-primary-deep: #4434d4;
+  --color-primary-press: #2e2b8c;
+  --color-primary-soft: #665efd;
+  --color-primary-subdued: #b9b9f9;
+  --color-primary-tint: #efeefe;
+  --color-brand-dark: #1c1e54;
+  --color-on-dark: #c9cdf2;
+
+  --font-sans: "Geist Variable", "SF Pro Display", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --shadow-lift: 0 1px 3px rgba(0, 55, 112, 0.08);
+  --shadow-float: 0 8px 24px rgba(0, 55, 112, 0.08), 0 2px 6px rgba(0, 55, 112, 0.04);
+  --shadow-deep: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3);
+
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root {
   font-family: var(--font-sans);
-  color: #07182d;
-  background: #f8fafc;
+  color: var(--color-ink);
+  background: var(--color-canvas);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
-  background: #f8fafc;
+  min-height: 100dvh;
+  background: var(--color-canvas);
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 button,
 a,
 input,
 select,
-textarea {
+textarea,
+summary {
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 ::selection {
   color: white;
-  background: #123554;
+  background: var(--color-primary);
 }
 
 .focus-ring:focus-visible {
-  outline: 3px solid rgba(205, 177, 113, 0.72);
+  outline: 2px solid var(--color-primary);
   outline-offset: 3px;
 }
 
-.hero-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 44px 44px;
+/* Números de dinheiro e contagens: algarismos tabulares, como no DESIGN.md. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
-.soft-grid {
-  background-image:
-    linear-gradient(rgba(7, 24, 45, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(7, 24, 45, 0.035) 1px, transparent 1px);
-  background-size: 36px 36px;
+/*
+  Faixa de gradiente do topo (assinatura do DESIGN.md).
+  Tons contidos para um contexto patrimonial: creme, pêssego, lavanda e índigo.
+*/
+.mesh {
+  position: absolute;
+  inset: -40% -10% auto -10%;
+  height: 120%;
+  transform: skewY(-8deg);
+  transform-origin: top left;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mesh::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(38% 55% at 12% 62%, #f5e9d4 0%, transparent 70%),
+    radial-gradient(30% 50% at 34% 78%, #ffd5b8 0%, transparent 72%),
+    radial-gradient(34% 60% at 58% 70%, #c7c3ff 0%, transparent 70%),
+    radial-gradient(30% 55% at 80% 60%, #7a6bff 0%, transparent 70%),
+    radial-gradient(26% 45% at 96% 82%, #f4a3c4 0%, transparent 72%),
+    #f6f9fc;
+  filter: blur(28px) saturate(1.05);
+}
+
+.mesh::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 35%;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.85));
+}
+
+.mesh-dark {
+  background:
+    radial-gradient(55% 80% at 100% 0%, rgba(122, 107, 255, 0.45) 0%, transparent 70%),
+    radial-gradient(45% 70% at 0% 100%, rgba(244, 163, 196, 0.18) 0%, transparent 70%),
+    var(--color-brand-dark);
 }
 
 .range-input {
-  accent-color: #0b2440;
+  accent-color: var(--color-primary);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .reveal {
-    animation: reveal 700ms ease-out both;
+  :root {
+    scroll-behavior: smooth;
   }
 
-  .float-slow {
-    animation: float 7s ease-in-out infinite;
+  .reveal {
+    animation: reveal 800ms var(--ease-out-soft) both;
   }
+
+  .reveal-1 { animation-delay: 80ms; }
+  .reveal-2 { animation-delay: 160ms; }
+  .reveal-3 { animation-delay: 240ms; }
 }
 
 @keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
 }
